@@ -23,7 +23,7 @@ export const HeroScreen = ({ history }) => {
     return (
         <div className="row mt-5">
             <div className="col-4">
-                <img src={`./assets/${heroeId}.jpg`}
+                <img src={`./assets/heroes/${heroeId}.jpg`}
                     alt={superhero}
                     className="img-thumbnail"
                 />
