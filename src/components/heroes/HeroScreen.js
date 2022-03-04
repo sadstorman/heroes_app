@@ -14,7 +14,7 @@ export const HeroScreen = ({ history }) => {
     const { superhero, publisher, alter_ego, first_appearance, characters } = hero
 
     const handleReturn = () => {
-        if(history.length <= 2) {
+        if (history.length <= 2) {
             history.push("/")
         } else {
             history.goBack()
