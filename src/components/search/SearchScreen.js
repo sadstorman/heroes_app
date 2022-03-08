@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useLocation } from 'react-router';
 import { useForm } from '../../hooks/useForm';
-import { HeroCard } from '../heroes/HeroCard';
+import { HeroCardSearch } from '../heroes/HeroCardSearch';
 import queryString from 'query-string'
 import { getHeroesByName } from '../../selectors/getHeroesByNames';
 
@@ -29,10 +29,11 @@ export const SearchScreen = ({ history }) => {
             <h1> Search screen</h1>
             <br />
 
-            <div className="row">
-                <div className="col-5">
+            <div className="row row-sm-2 ">
+                <div className="col-md-6 col-sm-12">
                     <h4>Search form</h4>
                     <hr />
+                    
 
                     <form onSubmit={handleSubmit}>
                         <input
@@ -41,20 +42,20 @@ export const SearchScreen = ({ history }) => {
                             type="text"
                             autoComplete="off"
                             placeholder="find your hero.."
-                            className="form-control"
+                            className="form-control w-100"
                             onChange={handleInputChange}
                         />
 
                         <button
                             type="submit"
-                            className="btn m-1 btn-block  btn-outline-primary"
+                            className="btn m-1 btn-block mt-2 btn-outline-primary m-auto "
                         >
                             Search
                         </button>
                     </form>
                 </div>
 
-                <div className="col-7">
+                <div className="col-md-6 col-sm-12">
                     <h4>Results</h4>
 
                     {(q === '')
@@ -69,7 +70,7 @@ export const SearchScreen = ({ history }) => {
                     <hr />
                     {
                         heroesFilter.map(hero => (
-                            <HeroCard
+                            <HeroCardSearch
                                 key={hero.id}
                                 {...hero}
                             />

@@ -13,40 +13,35 @@ export const HeroCard = ({
     const imagePath = `./assets/heroes/${id}.jpg`;
 
     return (
-        <div className="col animate__animated animate__fadeIn">
-            <div className="card bg-dark">
-                
-                <div className="row no-gutters ">
-                    <div className="col-4">
-                        <img src={ imagePath } className="card-img " alt={superhero} />
-                    </div>
-                    <div className="col-8 ">
 
-                        <div className="card-body ">
 
-                            <h5 className="card-title">{superhero}</h5>
-                            <p className="card-text">{alter_ego}</p>
+        <div className='col-12 col-sm-6 col-md-4 col-lg-3 my-2'>
 
-                            {
-                                ( alter_ego !== characters ) 
-                                    && <p className="text-muted">{ characters }</p>
-                            }
+            <div className="card w-100 bg-dark h-100">
+                <img src={imagePath} className="card-img-top animate__animated animate__fadeIn " alt={superhero} />
 
-                            <p className="card-text">
-                                <small className="text-muted">{ first_appearance }</small>
-                            </p>
+                <div className="card-body text-center animate__animated animate__fadeIn">
 
-                            
-                            <Link to={`/hero/${id}`}>
-                                Más...
-                            </Link>
+                    <h4 className="card-title"><u>{superhero}</u></h4>
+                    <p className="card-text">{alter_ego}</p>
 
-                        </div>
+                    {
+                        (alter_ego !== characters)
+                        && <p className="text-muted">{characters}</p>
+                    }
 
-                    </div>
+                    <p className="card-text">
+                        <small className="text-muted">{first_appearance}</small>
+                    </p>
+
+
+                    <Link to={`/hero/${id}`}>
+                        Más...
+                    </Link>
+
                 </div>
-
             </div>
         </div>
+
     )
 }
