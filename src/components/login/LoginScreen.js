@@ -1,35 +1,87 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../auth/AuthContext'
-import { authReducer } from '../../auth/authReducer'
-import { types } from '../../types/types'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { startGoogleLogin, startLoginEmailPassword } from '../../action/auth'
+import { useForm } from '../../hooks/useForm'
 
-export const LoginScreen = ({history}) => {
+export const LoginScreen = () => {
 
-    let lastPath = localStorage.getItem('lastPath') || '/'
-    const {dispatch} =useContext(AuthContext)
+    const loading = useSelector(state => state.ui.loading)
+    const dispatch = useDispatch()
 
-    const handleLogIn = () => {
-        dispatch({
-            type: types.login,
-            payload: {
-                name: 'Juan'
-            }
-        })
-        history.push(lastPath)
+    const handleGoogleLogin = () => {
+        dispatch ( startGoogleLogin())
     }
-    
 
+    const [formValues, handleInputChange] = useForm({
+        email: '',
+        password: ''
+    })
+
+    const { email, password } = formValues
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(startLoginEmailPassword( email, password))
+    }
     return (
-        <div className="container mt-5">
-            <h1>Login Screen</h1>
-            <hr/>
+        <div>
+            <h3 className="auth__title">Login</h3>
 
-            <button
-                className="btn btn-primary"
-                onClick={handleLogIn}
+            <form onSubmit={handleSubmit}
+                className='animate__animated animate__fadeIn animate__faster'
             >
-                Log in
-            </button>
+
+                <input
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    autoComplete="none"
+                    className="auth__input"
+                    value={email}
+                    onChange={handleInputChange}
+                />
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    className="auth__input"
+                    value={password}
+                    onChange={handleInputChange}
+                />
+
+                <button
+                    className="btnn btnn-primary btn-blockk"
+                    type="submit"
+                    disabled={loading}
+                >
+                    Login
+                </button>
+
+                <div className="auth__social-networks">
+                    <p>Login with social network</p>
+
+                    <div
+                        className="google-btn"
+                        onClick={handleGoogleLogin}
+                    >
+                        <div className="google-icon-wrapper">
+                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
+                        </div>
+                        <p className="btn-textt">
+                            <b>Sign in with google</b>
+                        </p>
+                    </div>
+                </div>
+
+                <Link
+                    className="link"
+                    to="/auth/register"
+                >
+                    Create new account
+                </Link>
+            </form>
         </div>
     )
 }

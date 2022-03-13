@@ -1,20 +1,19 @@
-import React, { useMemo } from 'react'
-import { useLocation } from 'react-router';
+import React, { useEffect, useMemo } from 'react'
+import { useLocation, useHistory } from 'react-router';
 import { useForm } from '../../hooks/useForm';
 import { HeroCardSearch } from '../heroes/HeroCardSearch';
 import queryString from 'query-string'
 import { getHeroesByName } from '../../selectors/getHeroesByNames';
 
-export const SearchScreen = ({ history }) => {
+export const SearchScreen = () => {
 
+    const history = useHistory()
     const location = useLocation()
     const { q = '' } = queryString.parse(location.search)
-    console.log(q);
 
     const [formValues, handleInputChange] = useForm({
         searchText: q
     })
-
     const { searchText } = formValues
 
     const handleSubmit = (e) => {
@@ -23,17 +22,16 @@ export const SearchScreen = ({ history }) => {
     }
     const heroesFilter = useMemo(() => getHeroesByName(q), [q])
 
-    console.log(heroesFilter);
     return (
         <div>
-            <h1> Search screen</h1>
+            <h1 className='text-danger'> Search screen</h1>
             <br />
 
             <div className="row row-sm-2 ">
                 <div className="col-md-6 col-sm-12">
-                    <h4>Search form</h4>
+                    <h4 className='text-info'>Search form</h4>
                     <hr />
-                    
+
 
                     <form onSubmit={handleSubmit}>
                         <input
@@ -48,7 +46,7 @@ export const SearchScreen = ({ history }) => {
 
                         <button
                             type="submit"
-                            className="btn m-1 btn-block mt-2 btn-outline-primary m-auto "
+                            className="btn m-1 btn-block mt-2 btn-outline-info m-auto "
                         >
                             Search
                         </button>
@@ -56,10 +54,10 @@ export const SearchScreen = ({ history }) => {
                 </div>
 
                 <div className="col-md-6 col-sm-12">
-                    <h4>Results</h4>
+                    <h4 className='text-info text-center'>Results</h4>
 
                     {(q === '')
-                        && <div className="alert alert-info">
+                        && <div className="alert alert-info text-center">
                             Search a hero
                         </div>}
 
